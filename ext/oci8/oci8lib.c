@@ -496,7 +496,9 @@ void *oci8_find_symbol(const char *symbol_name)
 #ifdef _AIX
 #define DLOPEN_FLAG (RTLD_LAZY|RTLD_GLOBAL|RTLD_MEMBER)
 #else
-#define DLOPEN_FLAG (RTLD_LAZY|RTLD_GLOBAL)
+//#define DLOPEN_FLAG (RTLD_LAZY|RTLD_GLOBAL)
+// https://github.com/kubo/ruby-oci8/issues/32
+#define DLOPEN_FLAG (RTLD_NOW|RTLD_LOCAL)
 #endif
         for (idx = 0; idx < NUM_SONAMES; idx++) {
             handle = dlopen(sonames[idx], DLOPEN_FLAG);
